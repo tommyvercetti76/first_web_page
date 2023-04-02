@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { max-width: 300px; margin: 50px auto; text-align: center; }
+    .sign-in-button { display: block; width: 100%; margin: 10px 0; }
+  </style>
+  <!-- Google Sign In -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID">
+  <!-- Apple Sign In -->
+  <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Sign In</h1>
+    <!-- Google Sign In -->
+    <div class="g-signin2 sign-in-button" data-onsuccess="onGoogleSignIn"></div>
+    <!-- Apple Sign In -->
+    <div id="apple-signin-btn" class="sign-in-button"></div>
+  </div>
+  <script>
+    // Google Sign In
+    function onGoogleSignIn(googleUser) {
+      // Get user data
+      var profile = googleUser.getBasicProfile();
+      console.log('Name: ' + profile.getName());
+      console.log('Email: ' + profile.getEmail());
+
+      // Handle sign-in logic here
+    }
+
+    // Apple Sign In
+    document.addEventListener('DOMContentLoaded', function() {
+      AppleID.auth.init({
+        clientId: 'YOUR_APPLE_CLIENT_ID',
+        scope: 'email',
+        redirectURI: 'https://example.com/callback', // Replace with your redirect URI
+        state: 'state', // Replace with your state value
+      });
+
+      var appleSignInButton = document.getElementById('apple-signin-btn');
+      appleSignInButton.addEventListener('click', function() {
+        AppleID.auth.signIn();
+      });
+    });
+  </script>
+</body>
+</html>
