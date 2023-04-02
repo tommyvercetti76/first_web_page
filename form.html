@@ -67,22 +67,57 @@
   </script>
   <script>
     function validateEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
-    $(document).ready(function() {
-      $("#contactForm").on("submit", function(event) {
-        const emailInput = $("#email");
-        const email = emailInput.val();
-        if (!validateEmail(email)) {
-          event.preventDefault();
-          emailInput.addClass("is-invalid");
-        } else {
-          emailInput.removeClass("is-invalid");
-        }
-      });
-    });
+function checkFormValidation() {
+  const name = $("#name").val();
+  const email = $("#email").val();
+  const message = $("#message").val();
+
+  if (name && validateEmail(email) && message) {
+    $(".btn-submit").prop("disabled", false);
+  } else {
+    $(".btn-submit").prop("disabled", true);
+  }
+}
+
+$(document).ready(function() {
+  $("#name, #email, #message").on("input", function() {
+    $(this).removeClass("is-invalid");
+    checkFormValidation();
+  });
+
+  $("#message").on("input", function() {
+    let charCount = $(this).val().length;
+    $("#charCount").text(charCount);
+  });
+
+  $("#contactForm").on("submit", function(event) {
+    const nameInput = $("#name");
+    const emailInput = $("#email");
+    const messageInput = $("#message");
+
+    const name = nameInput.val();
+    const email = emailInput.val();
+    const message = messageInput.val();
+
+    if (!name) {
+      event.preventDefault();
+      nameInput.addClass("is-invalid");
+    }
+    if (!validateEmail(email)) {
+      event.preventDefault();
+      emailInput.addClass("is-invalid");
+    }
+    if (!message) {
+      event.preventDefault();
+      messageInput.addClass("is-invalid");
+    }
+  });
+});
+
   </script>
 </body>
 </html>
