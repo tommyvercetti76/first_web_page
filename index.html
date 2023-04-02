@@ -4,83 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Experiences Carousel</title>
-
-  <!-- Include Bootstrap CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Include jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
   <style>
-    .experience-card {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .experience-title {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .experience-details {
-      font-size: 18px;
-    }
-
-    .btn-details {
-      margin-top: 1rem;
-    }
-
-    #experience-details-container {
-      display: none;
-    }
+    .experience-card { height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+    .experience-title { font-size: 24px; font-weight: bold; }
+    .experience-details { font-size: 18px; }
+    .btn-details { margin-top: 1rem; }
+    .experience-img { width: 100%; height: 200px; object-fit: cover; }
   </style>
 </head>
 <body>
-
-  <div class="container mt-5" id="carousel-container">
+  <div class="container mt-5">
     <div id="experienceCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-      <!-- ... -->
-      <div class="carousel-item active">
-        <div class="card experience-card">
-          <div class="card-body">
-            <h5 class="experience-title">Experience 1</h5>
-            <p class="experience-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <button class="btn btn-primary btn-details" data-experience="1">View Details</button>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card experience-card">
+            <img src="https://via.placeholder.com/600x200?text=Sunset" alt="Sunset" class="experience-img">
+            <div class="card-body">
+              <h5 class="experience-title">Experience 1</h5>
+              <ul class="experience-details">
+                <li>Lorem ipsum dolor sit amet.</li>
+                <li>Consectetur adipiscing elit.</li>
+                <li>Vivamus lacinia odio vitae vestibulum.</li>
+              </ul>
+              <a href="experience1.html" class="btn btn-primary btn-details">View Details</a>
+            </div>
           </div>
         </div>
       </div>
-      <!-- ... -->
     </div>
   </div>
-
-  <div class="container mt-5" id="experience-details-container">
-    <!-- Experience details will be loaded here -->
-    <button class="btn btn-secondary" id="back-to-carousel">Back to Carousel</button>
-  </div>
-
-  <script>
-    function loadExperienceDetails(experienceNumber) {
-      $("#experience-details-container").load(`experience-details/experience${experienceNumber}.html`, function() {
-        $("#carousel-container").hide();
-        $("#experience-details-container").show();
-      });
-    }
-
-    $(document).ready(function() {
-      $(".btn-details").on("click", function() {
-        const experienceNumber = $(this).data("experience");
-        loadExperienceDetails(experienceNumber);
-      });
-
-      $("#back-to-carousel").on("click", function() {
-        $("#experience-details-container").hide();
-        $("#carousel-container").show();
-      });
-    });
-  </script>
-
 </body>
 </html>
