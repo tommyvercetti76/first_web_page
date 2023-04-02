@@ -10,13 +10,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
   <!-- Include touchSwipe library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
+  
   <style>
     .experience-card { height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
     .experience-title { font-size: 24px; font-weight: bold; }
     .experience-details { font-size: 18px; }
     .btn-details { margin-top: 1rem; }
     .experience-img { width: 100%; height: 200px; object-fit: cover; }
+    footer { padding: 20px 0; text-align: center; }
+    .sign-in-button { display: inline-block; margin: 5px; }
   </style>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID">
+<!-- Apple Sign In -->
+<script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
+
 </head>
 <body>
   <header class="header">
@@ -92,16 +101,40 @@
     });
   </script>
 
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <p class="footer-text">&copy; 2023 My Website. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
+<footer>
+  <h4>Sign In</h4>
+  <!-- Google Sign In -->
+  <div class="g-signin2 sign-in-button" data-onsuccess="onGoogleSignIn"></div>
+  <!-- Apple Sign In -->
+  <div id="apple-signin-btn" class="sign-in-button"></div>
 </footer>
 
+<script>
+  // Google Sign In
+  function onGoogleSignIn(googleUser) {
+    // Get user data
+    var profile = googleUser.getBasicProfile();
+    console.log('Name: ' + profile.getName());
+    console.log('Email: ' + profile.getEmail());
+
+    // Handle sign-in logic here
+  }
+
+  // Apple Sign In
+  document.addEventListener('DOMContentLoaded', function() {
+    AppleID.auth.init({
+      clientId: 'YOUR_APPLE_CLIENT_ID',
+      scope: 'email',
+      redirectURI: 'https://example.com/callback', // Replace with your redirect URI
+      state: 'state', // Replace with your state value
+    });
+
+    var appleSignInButton = document.getElementById('apple-signin-btn');
+    appleSignInButton.addEventListener('click', function() {
+      AppleID.auth.signIn();
+    });
+  });
+</script>
   </body>
 </html>
   
