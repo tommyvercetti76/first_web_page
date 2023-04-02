@@ -32,51 +32,55 @@
     .btn-details {
       margin-top: 1rem;
     }
+
+    #experience-details-container {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container mt-5">
+  <div class="container mt-5" id="carousel-container">
     <div id="experienceCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="card experience-card">
-            <div class="card-body">
-              <h5 class="experience-title">Experience 1</h5>
-              <p class="experience-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <a href="experience1.html" class="btn btn-primary btn-details">View Details</a>
-            </div>
+      <!-- ... -->
+      <div class="carousel-item active">
+        <div class="card experience-card">
+          <div class="card-body">
+            <h5 class="experience-title">Experience 1</h5>
+            <p class="experience-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button class="btn btn-primary btn-details" data-experience="1">View Details</button>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="card experience-card">
-            <div class="card-body">
-              <h5 class="experience-title">Experience 2</h5>
-              <p class="experience-details">Vivamus lacinia odio vitae vestibulum vestibulum.</p>
-              <a href="experience2.html" class="btn btn-primary btn-details">View Details</a>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card experience-card">
-            <div class="card-body">
-              <h5 class="experience-title">Experience 3</h5>
-              <p class="experience-details">Cras porta justo nec est ultricies ultricies.</p>
-              <a href="experience3.html" class="btn btn-primary btn-details">View Details</a>
-            </div>
-          </div>
-        </div>        
       </div>
-      <!-- <a class="carousel-control-prev" href="#experienceCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#experienceCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a> -->
+      <!-- ... -->
     </div>
   </div>
+
+  <div class="container mt-5" id="experience-details-container">
+    <!-- Experience details will be loaded here -->
+    <button class="btn btn-secondary" id="back-to-carousel">Back to Carousel</button>
+  </div>
+
+  <script>
+    function loadExperienceDetails(experienceNumber) {
+      $("#experience-details-container").load(`experience-details/experience${experienceNumber}.html`, function() {
+        $("#carousel-container").hide();
+        $("#experience-details-container").show();
+      });
+    }
+
+    $(document).ready(function() {
+      $(".btn-details").on("click", function() {
+        const experienceNumber = $(this).data("experience");
+        loadExperienceDetails(experienceNumber);
+      });
+
+      $("#back-to-carousel").on("click", function() {
+        $("#experience-details-container").hide();
+        $("#carousel-container").show();
+      });
+    });
+  </script>
 
 </body>
 </html>
